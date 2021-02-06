@@ -57,3 +57,13 @@ Router.post('/signup', async (req, res) => {
         });
     }
 })
+
+Router.post('/signin', async (req, res) => {
+    try {
+        //try block
+    } catch (error) {
+        res.status(400).send({
+            signin_error: 'Email/password does not match.'
+        })
+    }
+})
