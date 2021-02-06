@@ -89,3 +89,13 @@ Router.post('/signin', async (req, res) => {
         })
     }
 })
+
+Router.post('/logout', authMiddleware, async (req, res) => {
+    try {
+        //try block
+    } catch (error){
+        res.status(400).send({
+            logout_error: 'Error while logging out. Try again later.'
+        })
+    }
+})
