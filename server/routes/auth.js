@@ -60,7 +60,29 @@ Router.post('/signup', async (req, res) => {
 
 Router.post('/signin', async (req, res) => {
     try {
-        //try block
+        const { email, password } = req.body;
+        const user = await validateUser(email, password);
+
+        if(!user){
+            res.status(400).send({
+                signin_error: 'Email/password does not match.'
+            })
+        }
+
+        const token = await generateAuthToken(user);
+        const result = await pool.query(
+            'insert into tokens(access_token, userid) values($1, $2) returning *',
+            [token, user.userid]
+        );
+
+        if (!result.rows[0]){
+            return res.status(400).send({
+                signin_error: 'Error while signing in. Try again later.'
+            })
+        }
+
+        user.token = result.rows[0].access_token;
+        res.send(user);
     } catch (error) {
         res.status(400).send({
             signin_error: 'Email/password does not match.'
