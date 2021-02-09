@@ -22,3 +22,14 @@ export const initiateLogin = (email, password) => {
         }
     } 
 }
+
+export const registerNewUser = (data) => {
+    return async (dispatch) => {
+        try {
+            //try block
+        } catch (error) {
+            console.log('error', error);
+            return {success: false}
+        }
+    }
+}
