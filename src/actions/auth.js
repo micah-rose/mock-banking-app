@@ -9,7 +9,14 @@ export const signIn = (user) => ({
 export const initiateLogin = (email, password) => {
     return async (dispatch) => {
         try {
-            //try block
+            const result = await axios.post(`${BASE_API_URL}/signin`, {
+                email,
+                password
+            });
+
+            const user = result.data;
+            localStorage.setItem('user_token', user.token);
+            dispatch(signIn(user));
         } catch (error) {
             console.log('error');
         }
