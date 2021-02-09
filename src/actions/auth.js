@@ -26,7 +26,8 @@ export const initiateLogin = (email, password) => {
 export const registerNewUser = (data) => {
     return async (dispatch) => {
         try {
-            //try block
+            await axios.post(`${BASE_API_URL}/signup`, data);
+            return {success: true};
         } catch (error) {
             console.log('error', error);
             return {success: false}
