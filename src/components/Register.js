@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { validateFields } from '../utils/common';
 import { Link } from 'react-router-dom';
+import { registerNewUser } from '../actions/auth';
 
 class Register extends React.Component{
     state = {
@@ -44,6 +45,17 @@ class Register extends React.Component{
                 })
             } else {
                 this.setState({ isSubmitted: true })
+
+                this.props
+                    .dispatch(registerNewUser({ first_name, last_name, email, password}))
+                    .then((response) => {
+                        if (response.success) {
+                            this.setState({
+                                successMsg: 'User registered successfully.',
+                                errorMsg: ''
+                            })
+                        }
+                    })
             }
         }
     }
