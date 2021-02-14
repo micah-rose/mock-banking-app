@@ -31,7 +31,7 @@ class Login extends React.Component {
                     signin_error: ''
                 }
             })
-            this.props.dispatch(initiaiteLogin(email, password));
+            this.props.dispatch(initiateLogin(email, password));
         }
     }
 
