@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { Form, Button } from 'react-bootstrap';
 import { initiateLogin } from '../actions/auth';
 import { validateFields } from '../utils/common';
@@ -11,6 +12,16 @@ class Login extends React.Component {
         email: '',
         password: '',
         errorMsg: ''
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.errors, this.props.errors)) {
+            this.setState({errorMsg: this.props.errors})
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.dispatch(resetErrors());
     }
 
     handleLogin = (event) => {
@@ -88,4 +99,8 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+    errors: state.errors
+});
+
+export default connect(mapStateToProps)(Login);
