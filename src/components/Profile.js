@@ -44,11 +44,33 @@ class Profile extends React.Component {
     }
 
     handleSubmit = event => {
-        //handleSubmit
+        event.preventDefault();
+        const { first_name, last_name } = this.state;
+        const profileData = {
+            first_name, 
+            last_name
+        };
+
+        const fieldsToValidate = [{ first_name }, { last_name }];
+
+        const allFieldsEntered = validateFields(fieldsToValidate);
+        if (!allFieldsEntered) {
+            this.setState({
+                errorMsg: {
+                    update_error: 'Please enter all fields.'
+                }
+            })
+        } else {
+            this.setState({ isSubmitted: true, errorMsg: '' });
+            this.props.dispatch(initiateUpdateProfile(profileData));
+        }
     }
 
     handleOnChange = event => {
-        //handleOnChange
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        })
     }
 
     render() {
