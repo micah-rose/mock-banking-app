@@ -12,7 +12,9 @@ export const updateProfile = profile => ({
 export const initiateUpdateProfile = profileData => {
     return async (dispatch) => {
         try {
-            //try block
+            const profile = await post(`${BASE_API_URL}/profile`, profileData);
+            dispatch(updateProfile(profile.data));
+            history.push('/profile');
         } catch (error) {
             error.response && dispatch(getErrors(error.response.data));
         }
@@ -22,7 +24,8 @@ export const initiateUpdateProfile = profileData => {
 export const initiateGetProfile = email => {
     return async (dispatch) => {
         try {
-            //try block
+            const profile = await get(`${BASE_API_URL}/profile`);
+            dispatch(updateProfile(profile.data));
         } catch (error) {
             error.response && dispatch(getErrors(error.response.data));
         }
