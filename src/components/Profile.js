@@ -28,11 +28,19 @@ class Profile extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        //DidUpdate
+        if (!_.isEqual(prevProps.errors, this.props.errors)) {
+            this.setState({
+                errorMsg: this.props.errors
+            })
+        }
+        if (!_.isEqual(prevProps.profile, this.props.profile)) {
+            const { first_name, last_name, email } = this.props.profile;
+            this.setState({ first_name, last_name, email})
+        }
     }
 
     componentWillUnmount() {
-        //WillUnmount
+        this.props.dispatch(resetErrors());
     }
 
     handleSubmit = event => {
