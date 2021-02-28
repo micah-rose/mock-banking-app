@@ -5,18 +5,22 @@ import { createBrowserHistory } from 'history';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import Profile from '../components/Profile';
+import Header from '../components/Header';
 
 export const history = createBrowserHistory();
 
 const AppRouter = () => {
     return (
         <Router history={history}>
+            <div>
+                {!_.isEmpty(auth.token) && <Header />}
             <div className="container">
                 <Switch>
                     <Route path="/" component={Login} exact={true} />
                     <Route path="/register" component={Register} />
                     <Route path="/profile" component={Profile} />
                 </Switch>
+            </div>
             </div>
         </Router>
     )
