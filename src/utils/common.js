@@ -33,3 +33,14 @@ export const updateStore = (user) => {
     )
     store.dispatch(initiateGetProfile(email));
 }
+
+export const setAuthHeader = () => {
+    const token = localStorage.getItem('user_token');
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+};
+
+export const removeAuthHeader = () => {
+    delete axios.defaults.headers.common['Authorization'];
+}
