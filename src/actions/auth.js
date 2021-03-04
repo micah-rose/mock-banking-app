@@ -50,7 +50,7 @@ export const initiateLogout = () => {
     return async (dispatch) => {
         try {
             setAuthHeader();
-            await axios.post(`${BASE_API_URL}/logout`);
+            await post(`${BASE_API_URL}/logout`);
             removeAuthHeader();
             localStorage.removeItem('user_token');
             return dispatch(signOut());
